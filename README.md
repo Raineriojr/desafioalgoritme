@@ -1,6 +1,7 @@
 # Desafio Algoritme
 
 #### Construção de CRUD com listagem e filtro de clientes.
+##### Dados para primeiro login no final deste arquivo.
 
 
 # Especificações
