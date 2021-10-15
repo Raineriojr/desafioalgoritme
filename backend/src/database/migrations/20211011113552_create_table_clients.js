@@ -1,10 +1,10 @@
 
 exports.up = function(knex) {
     return knex.schema.createTable('tbl_clientes', (table)=>{
-        table.increments('id_cliente'),
+        table.increments('id'),
         table.string('nome').notNullable(),
         table.string('telefone').notNullable(),
-        table.date('data_nascimento').notNullable(),
+        table.date('data_nascimento', 10).notNullable(),
         table.float('renda').notNullable(),
         table.boolean('status').notNullable()
     })

@@ -14,12 +14,14 @@ import {
 import { useHistory, useLocation } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import api from '../../services/api';
 //estilos
 import useStyles from './style';
 import useGlobalStyles from '../../styles/globalStyles';
 
-import Header from '../../components/header';
+import Header from '../index';
+import PhoneMask from '../../components/phoneMask';
+import NumberMask from '../../components/numberMask';
+import api from '../../services/api';
 
 export default function Editar(){
 
@@ -83,7 +85,7 @@ export default function Editar(){
 
             <Paper className={classes.paper}>
             <Box className={classes.box}>
-
+               
                 <Typography variant="h4" className={classes.title}>Editar Dados</Typography>
 
                 <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
@@ -103,19 +105,6 @@ export default function Editar(){
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField
-                                required
-                                fullWidth
-                                id="telefone"
-                                type="tel"
-                                label="Telefone"
-                                name="telefone"
-                                error={touched.telefone && errors.telefone ? true : false}
-                                helperText={touched.telefone && errors.telefone}
-                                {...getFieldProps('telefone')}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
                             <TextField  
                                 InputLabelProps={{ shrink: true }}
                                 required
@@ -129,19 +118,16 @@ export default function Editar(){
                                 {...getFieldProps('data_nascimento')}
                             />
                         </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                required
-                                fullWidth
-                                name="renda"
-                                label="Renda"
-                                type="number"
-                                id="renda"
-                                error={touched.renda && errors.renda ? true : false}
-                                helperText={touched.renda && errors.renda}
-                                {...getFieldProps('renda')}
-                            />
+
+                        <Grid item xs={12} alignContent="center" className={globalClasses.inputMaskContainer}>
+                            <Grid item xs={6}> 
+                                <PhoneMask getFieldProps={getFieldProps} touched={touched} errors={errors}/>
+                            </Grid>
+                            <Grid item xs={6}> 
+                                <NumberMask getFieldProps={getFieldProps} touched={touched} errors={errors}/>
+                            </Grid>                                
                         </Grid>
+
                         <Grid item xs={12} className={globalClasses.buttonGrid}>
                         <Box sx={{ m: 1, position: 'relative' }}>
                             <Button

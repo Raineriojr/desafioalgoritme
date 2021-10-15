@@ -87,7 +87,7 @@ export default function Header(props) {
                 })}
             >
                 <div className={classes.drawerHeader} />
-                {props.content()}
+                {props.content()} 
             </main>
             
         </div>

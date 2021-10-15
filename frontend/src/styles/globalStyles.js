@@ -8,6 +8,13 @@ const useGlobalStyles = makeStyles((theme)=> ({
 
     textButton:{
         fontWeight: '600'
+    },
+
+    inputMaskContainer:{
+        display: 'flex',
+        flexDirection:  'row',
+        alignItems: 'center',
+        justifyContent: 'center'
     }
 
 }))

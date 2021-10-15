@@ -17,23 +17,13 @@ const useStyles = makeStyles((theme) => ({
     },
 
     topListContainer:{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: "space-between",
-        height: theme.spacing(3),
-        width: '100%',
-        marginBottom: theme.spacing(1)
-    },
-
-    flexFilters:{
-        display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginLeft: theme.spacing(4),
-        marginBottom: theme.spacing(4)
+        width: '100%',
     },
 
     dataGrid:{
+        display: 'flex',
         height: theme.spacing(50), 
         width: '100%'
     },
@@ -41,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
     
 
     //estilo dos filtros
+    
     select:{
         width: theme.spacing(15),
         margin: theme.spacing(1)

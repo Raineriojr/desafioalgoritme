@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import {
     Box,
+    Grid,
     Container,
     CssBaseline,
-    ListItem,
     ListItemIcon,
     Paper,
-    Typography,
-    Drop
+    Typography
 } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
@@ -15,11 +14,10 @@ import api from '../../services/api';
 
 //icones
 import IconEdit from '@material-ui/icons/Edit';
-import IconDelete from '@material-ui/icons/Delete';
 //estilo
 import useStyles from './style';
 //componentes
-import Header from '../../components/header';
+import Header from '../index';
 import Filtros from './filtros';
 
 const columns = [ //colunas ta tabela
@@ -33,10 +31,6 @@ const columns = [ //colunas ta tabela
 export default function UserList(){
     const classes = useStyles();
 
-    useEffect(()=>{
-        getDataList();
-    },[])
-    
     //navegação
     const history = useHistory();
     const pageEdit = (data) => history.push({
@@ -48,9 +42,17 @@ export default function UserList(){
     const [ filtered, setFiltered ] = useState([])
     const [ rowData, setRowData ] = useState([]); //recebe dados de linha selecionada
     
+
+    useEffect(()=>{
+        getDataList();
+    },[dataList])
+
     function getDataList(){ //busca lista de clientes
         api.get('/lista_clientes').then((resp)=>{
-            formatedData(resp.data)
+            if(dataList.length !== resp.data.length){
+                formatedData(resp.data)
+            }
+            setFiltered(dataList)
         }).catch((error)=>{
             console.log(error);
         })
@@ -69,7 +71,6 @@ export default function UserList(){
             }  
         })
         setDataList(data);
-        setFiltered(dataList)
     }
     
     function clickIconEdit(){ //executado ao clicar no botão de editar cliente
@@ -90,22 +91,18 @@ export default function UserList(){
             <Box className={classes.box}>
         
                 <Typography variant="h4" className={classes.title}>Lista de Clientes</Typography>
-                <div className={classes.topListContainer}>
-                    <div>
+
+                <Grid container className={classes.topListContainer}>
+                    <Grid item >
                         <Filtros setFiltered={setFiltered} dataList={dataList} />
-                    </div>
-                    <div className={classes.flex}>
-                        <ListItemIcon  onClick={()=> clickIconEdit()}>
-                            <IconEdit/>
+                    </Grid>
+                    <Grid item >
+                        <ListItemIcon onClick={()=> clickIconEdit()}>
+                            <IconEdit/> 
                         </ListItemIcon>
-                        <ListItemIcon >
-                            <IconDelete/>
-                        </ListItemIcon>
-                    </div>
-                    
-                </div>
-                <div className={classes.dataGrid}>
-                    
+                    </Grid>
+                </Grid>
+                <Grid container className={classes.dataGrid}>
                     <DataGrid
                         disableColumnMenu
                         hideFooterRowCount
@@ -116,7 +113,8 @@ export default function UserList(){
                         rowsPerPageOptions={[5]}
                         onRowClick={(data)=>setRowData(data.row)}
                     />
-                </div>
+                </Grid>
+                
             </Box>
             </Paper>
         </Container>

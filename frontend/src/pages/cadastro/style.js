@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme)=> ({
 
     title:{
         marginBottom: theme.spacing(5)
-    }
+    },
 
 }))
 

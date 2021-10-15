@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Avatar,
     Button,
@@ -23,6 +23,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 //estilo
 import useStyles from './style';
 
+import Modal from '../../components/modal/Modal';
+
 function Subtitle() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
@@ -37,6 +39,8 @@ export default function Login(){
 
     const classes = useStyles();
     const history = useHistory();
+
+    const [open, setOpen] = useState(false); //abre modal
 
     const Log = (data) => history.push({
         pathname: '/list',
@@ -62,7 +66,7 @@ export default function Login(){
                 }
             }).catch((error)=>{
                 setSubmitting(false)
-                alert('Usuário ou senha incorretos')
+                setOpen(true)
                 console.log(error);
             })
         }
@@ -72,6 +76,7 @@ export default function Login(){
         <Container component="main" maxWidth="xs">
 
             <CssBaseline />
+            <Modal open={open} setOpen={setOpen}/>
 
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
@@ -127,16 +132,16 @@ export default function Login(){
                             onClick={handleSubmit}
                             disabled={isSubmitting}
                         >   
-                        {isSubmitting && (
-                            <CircularProgress
-                                size={24}
-                                sx={{
-                                    position: 'absolute',
-                                    top: '50%',
-                                    left: '50%',
-                                }}
-                            />
-                        )}
+                            {isSubmitting && (
+                                <CircularProgress
+                                    size={24}
+                                    sx={{
+                                        position: 'absolute',
+                                        top: '50%',
+                                        left: '50%',
+                                    }}
+                                />
+                            )}
                             LOGIN
                         </Button>
                     </Box>
